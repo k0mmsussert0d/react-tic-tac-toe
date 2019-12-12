@@ -1,22 +1,49 @@
 import React from 'react';
 import Button from './Button.js';
 
-const Table = () => {
-    let buttonId = 0;
+const TableBody = props => {
     return (
         <div className="table">
-            <div className="table-body">
-                {[...Array(3)].map((e, i) => (
-                    <div className="table-row" key={i}>
-                        {[...Array(3)].map((f, j) => (
-                            <div className="table-cell" key={buttonId}>
-                                <Button id={buttonId++} />
-                            </div>
-                        ))}
-                    </div>
-                ))}
-            </div>
+            <div className="table-body">{props.children}</div>
         </div>
+    );
+};
+
+const TableRow = props => {
+    return (
+        <>
+            <div className="table-row">{props.children}</div>
+        </>
+    );
+};
+
+const TableCell = props => {
+    return (
+        <>
+            <div className="table-cell">{props.children}</div>
+        </>
+    );
+};
+
+const Table = () => {
+    let buttonId = 0;
+
+    return (
+        <TableBody>
+            {[...Array(3)].map((e, i) => {
+                return (
+                    <TableRow key={i}>
+                        {[...Array(3)].map((f, j) => {
+                            return (
+                                <TableCell key={j}>
+                                    <Button id={buttonId++} />
+                                </TableCell>
+                            );
+                        })}
+                    </TableRow>
+                );
+            })}
+        </TableBody>
     );
 };
 
