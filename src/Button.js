@@ -12,7 +12,7 @@ const Button = props => {
         <button
             className="tic"
             style={{ backgroundImage: props.status }}
-            onClick={() => console.log('Button ' + props.id + ' clicked!')}
+            onClick={() => props.onClick({ fieldIndex: props.id })}
         >
             {content}
         </button>
