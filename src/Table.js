@@ -1,29 +1,5 @@
 import React, { useReducer } from 'react';
-import Button from './Button.js';
-
-const TableBody = props => {
-    return (
-        <div className="table">
-            <div className="table-body">{props.children}</div>
-        </div>
-    );
-};
-
-const TableRow = props => {
-    return (
-        <>
-            <div className="table-row">{props.children}</div>
-        </>
-    );
-};
-
-const TableCell = props => {
-    return (
-        <>
-            <div className="table-cell">{props.children}</div>
-        </>
-    );
-};
+import Utils from './Utils.js';
 
 const initalState = Array(9).fill(null);
 
@@ -31,8 +7,8 @@ const reducer = (state, action) => {
     let newState = [...state];
     console.log('Clicked', action.fieldIndex);
     if (state[action.fieldIndex] == null) {
-        console.log('null');
-        newState[action.fieldIndex] = 0;
+        console.log('New mark');
+        newState[action.fieldIndex] = 'cross';
     } else {
         console.log('Already checked');
     }
@@ -43,27 +19,53 @@ const reducer = (state, action) => {
 const Table = () => {
     const [fields, setFields] = useReducer(reducer, initalState);
 
-    let buttonId = 0;
+    const renderButton = (id, state) => {
+        let content = '';
+        if (state === 'cross') {
+            content = 'X';
+        } else if (state === 'circle') {
+            content = 'O';
+        }
+
+        return (
+            <button
+                className="tic"
+                key={id}
+                onClick={() => {
+                    setFields({ fieldIndex: id });
+                }}
+            >
+                {content}
+            </button>
+        );
+    };
 
     return (
-        <TableBody>
-            {[...Array(3)].map((e, i) => {
-                return (
-                    <TableRow id={i}>
-                        {[...Array(3)].map((f, j) => {
-                            return (
-                                <TableCell id={j}>
-                                    <Button
-                                        id={buttonId++}
-                                        onClick={setFields}
-                                    />
-                                </TableCell>
-                            );
-                        })}
-                    </TableRow>
-                );
-            })}
-        </TableBody>
+        <div className="table">
+            <div className="table-body">
+                <div className="table-row">
+                    {Utils.range(0, 2).map(id => (
+                        <div className="table-cell" key={id}>
+                            {renderButton(id, fields[id])}
+                        </div>
+                    ))}
+                </div>
+                <div className="table-row">
+                    {Utils.range(3, 5).map(id => (
+                        <div className="table-cell" key={id}>
+                            {renderButton(id, fields[id])}
+                        </div>
+                    ))}
+                </div>
+                <div className="table-row">
+                    {Utils.range(6, 8).map(id => (
+                        <div className="table-cell" key={id}>
+                            {renderButton(id, fields[id])}
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
     );
 };
 
