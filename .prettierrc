@@ -5,7 +5,7 @@
     "useTabs": false,
     "overrides": [
         {
-            "files": ["*.css", "*.less"],
+            "files": ["*.css", "*.less", "*.sass", "*.scss"],
             "options": {
                 "tabWidth": 2
             }
