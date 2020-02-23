@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Table from './Table.js';
+import Title from './Title.js';
+import Config from './Config.js';
+import './styles.sass';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    const [player, setPlayer] = useState(Config.playerNames.playerOne);
+    const [roundNumber, setRoundNumber] = useState(1);
+    const [winner, setWinner] = useState(null);
+    const [gameState, setGameState] = useState(Config.gameStates.ongoing);
+
+    return (
+        <>
+            <div className="app">
+                <Title
+                    playerName={player}
+                    roundNumber={roundNumber}
+                    gameState={gameState}
+                    winnerName={winner}
+                />
+                <div className="game">
+                    <Table
+                        playerName={player}
+                        setPlayerName={setPlayer}
+                        incRoundNumber={() => setRoundNumber(roundNumber + 1)}
+                        gameState={gameState}
+                        setGameState={setGameState}
+                        setWinner={setWinner}
+                    />
+                </div>
+            </div>
+        </>
+    );
+};
 
 export default App;
