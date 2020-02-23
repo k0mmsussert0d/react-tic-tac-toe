@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "license": "MIT",
   "private": true,
-  "homepage": "https://k0mmsussert0d.github.io/tic-tac-toe",
+  "homepage": "https://k0mmsussert0d.github.io/react-tic-tac-toe/",
   "dependencies": {
     "@babel/core": "7.7.4",
     "@svgr/webpack": "4.3.3",
